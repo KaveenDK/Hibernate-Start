@@ -1,4 +1,4 @@
-package entity;
+package lk.ijse.hibernate.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -22,4 +22,5 @@ public class Customer {
     private int id;
     private String name;
     private String email;
+    private int phone;
 }
