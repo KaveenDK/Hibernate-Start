@@ -5,6 +5,8 @@ import lk.ijse.hibernate.entity.Customer;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -34,6 +36,9 @@ public class Main {
                 "support@email.com",
                 0771234567
         ));
+
+        List<Customer> allCustomers = getAllCustomers();
+        allCustomers.forEach(System.out::println);
     }
 
     public static boolean saveCustomer(Customer customer) {
@@ -89,5 +94,13 @@ public class Main {
         } finally {
             session.close();
         }
+    }
+
+    public static List<Customer> getAllCustomers() {
+        Session session = FactoryConfiguration.getInstance().getSession();
+
+        //HQL - Hibernate Query Language
+        List<Customer> customers = session.createQuery("from Customer", Customer.class).list();
+        return customers;
     }
 }
