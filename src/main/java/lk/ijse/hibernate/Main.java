@@ -2,6 +2,7 @@ package lk.ijse.hibernate;
 
 import lk.ijse.hibernate.config.FactoryConfiguration;
 import lk.ijse.hibernate.entity.Customer;
+import lk.ijse.hibernate.entity.CustomerFullName;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -11,11 +12,19 @@ public class Main {
 
     public static void main(String[] args) {
 
+        CustomerFullName customerFullName = new CustomerFullName(
+                "john",
+                "doe"
+        );
+
         Customer customer = new Customer(
                 5,
                 "dimantha kaveen",
                 "support@email.com",
-                0771234567
+                0771234567,
+                "1234 5678 9012 3456",
+                "This is a description",
+                customerFullName
         );
 
         boolean isSaved = saveCustomer(customer);
@@ -30,12 +39,12 @@ public class Main {
 
         deleteCustomer(5);
 
-        updateCustomer(2, new Customer(
-                2,
-                "dimantha",
-                "support@email.com",
-                0771234567
-        ));
+//        updateCustomer(2, new Customer(
+//                2,
+//                "dimantha",
+//                "support@email.com",
+//                0771234567
+//        ));
 
         List<Customer> allCustomers = getAllCustomers();
         allCustomers.forEach(System.out::println);
