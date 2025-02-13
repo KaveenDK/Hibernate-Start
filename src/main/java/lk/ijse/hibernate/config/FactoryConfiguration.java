@@ -5,6 +5,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.io.IOException;
+import java.util.Properties;
+
 public class FactoryConfiguration {
 
     private static FactoryConfiguration factoryConfiguration;
@@ -12,6 +15,16 @@ public class FactoryConfiguration {
 
     private FactoryConfiguration() {
         Configuration configure = new Configuration().configure();
+
+        Properties properties = new Properties();
+        try {
+            properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("hibernate.properties")); // set path
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        configure.setProperties(properties);
+
         configure.addAnnotatedClass(Customer.class);
         sessionFactory = configure.buildSessionFactory();
     }
